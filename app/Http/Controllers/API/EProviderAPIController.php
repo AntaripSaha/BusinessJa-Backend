@@ -45,8 +45,6 @@ class EProviderAPIController extends Controller
         $this->uploadRepository = $uploadRepo;
         parent::__construct();
     }
-
-
     /**
      * Display a listing of the EProvider.
      * GET|HEAD /eProviders
@@ -60,7 +58,7 @@ class EProviderAPIController extends Controller
             $this->eProviderRepository->pushCriteria(new RequestCriteria($request));
             $this->eProviderRepository->pushCriteria(new AcceptedCriteria());
             $this->eProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
-            $eProviders = $this->eProviderRepository->all();
+            $eProviders = $this->eProviderRepository->orderBy('id', 'desc')->all();
             $this->filterCollection($request, $eProviders);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
@@ -83,11 +81,24 @@ class EProviderAPIController extends Controller
             }
             else{
                 $eProviders = $this->eProviderRepository->paginate($limit);
-                return $this->sendResponse($eProviders->toArray(), 'Limit Providers retrieved successfully');
+                return $this->sendResponse($eProviders->toArray(), 'ALL Providers retrieved successfully');
             }
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
+    }
+    public function featured_list(Request $request): JsonResponse
+    {
+        try {
+            $this->eProviderRepository->pushCriteria(new RequestCriteria($request));
+            $this->eProviderRepository->pushCriteria(new AcceptedCriteria());
+            $this->eProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $eProviders = $this->eProviderRepository->where('featured',1)->get();
+            $this->filterCollection($request, $eProviders);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
+        return $this->sendResponse($eProviders->toArray(), 'E Providers retrieved successfully');
     }
     /**
      * Display the specified EProvider.
