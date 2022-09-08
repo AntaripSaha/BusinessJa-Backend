@@ -8,13 +8,14 @@
 
 namespace App\Http\Controllers\API;
 
-
+use App\Criteria\EProviders\AcceptedCriteria;
 use App\Criteria\EServices\EServicesOfUserCriteria;
 use App\Criteria\EServices\NearCriteria;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEServiceRequest;
 use App\Http\Requests\UpdateEServiceRequest;
 use App\Repositories\EServiceRepository;
+use App\Repositories\EProviderRepository;
 use App\Repositories\UploadRepository;
 use App\Repositories\UserRepository;
 use Exception;
@@ -33,6 +34,8 @@ use Prettus\Repository\Exceptions\RepositoryException;
  */
 class EServiceAPIController extends Controller
 {
+    /** @var  EProviderRepository */
+    private $eProviderRepository;
     /** @var  eServiceRepository */
     private $eServiceRepository;
     /** @var UserRepository */
@@ -42,9 +45,10 @@ class EServiceAPIController extends Controller
      */
     private $uploadRepository;
 
-    public function __construct(EServiceRepository $eServiceRepo, UserRepository $userRepository, UploadRepository $uploadRepository)
+    public function __construct(EProviderRepository $eProviderRepo,EServiceRepository $eServiceRepo, UserRepository $userRepository, UploadRepository $uploadRepository)
     {
         parent::__construct();
+        $this->eProviderRepository = $eProviderRepo;
         $this->eServiceRepository = $eServiceRepo;
         $this->userRepository = $userRepository;
         $this->uploadRepository = $uploadRepository;
@@ -57,17 +61,37 @@ class EServiceAPIController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
+    // public function index(Request $request): JsonResponse
+    // {
+    //     try {
+            // $this->eServiceRepository->pushCriteria(new RequestCriteria($request));
+    //         $this->eServiceRepository->pushCriteria(new EServicesOfUserCriteria(auth()->id()));
+    //         $this->eServiceRepository->pushCriteria(new NearCriteria($request));
+    //         $eServices = $this->eServiceRepository->all();
+            
+    //         $this->availableEServices($eServices);
+    //         $this->availableEProvider($request, $eServices);
+    //         $this->hasValidSubscription($request, $eServices);
+    //         $this->orderByRating($request, $eServices);
+    //         $this->limitOffset($request, $eServices);
+    //         $this->filterCollection($request, $eServices);
+    //         $eServices = array_values($eServices->toArray());
+    //     } catch (Exception $e) {
+    //         return $this->sendError($e->getMessage());
+    //     }
+    //     return $this->sendResponse($eServices, 'E Services retrieved successfully');
+    // }
     public function index(Request $request): JsonResponse
     {
         try {
-            $this->eServiceRepository->pushCriteria(new RequestCriteria($request));
-            $this->eServiceRepository->pushCriteria(new EServicesOfUserCriteria(auth()->id()));
-            $this->eServiceRepository->pushCriteria(new NearCriteria($request));
-            $eServices = $this->eServiceRepository->all();
             
+            $this->eProviderRepository->pushCriteria(new AcceptedCriteria());
+            $this->eProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $eServices = $this->eProviderRepository->all();
+            return $this->sendResponse($eServices, 'E Provider retrieved successfully');
             $this->availableEServices($eServices);
-            $this->availableEProvider($request, $eServices);
-            $this->hasValidSubscription($request, $eServices);
+            // $this->availableEProvider($request, $eServices);
+            // $this->hasValidSubscription($request, $eServices);
             $this->orderByRating($request, $eServices);
             $this->limitOffset($request, $eServices);
             $this->filterCollection($request, $eServices);
@@ -77,7 +101,6 @@ class EServiceAPIController extends Controller
         }
         return $this->sendResponse($eServices, 'E Services retrieved successfully');
     }
-
     /**
      * @param Collection $eServices
      */

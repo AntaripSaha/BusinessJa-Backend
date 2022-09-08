@@ -51,7 +51,7 @@ Route::get('settings', 'API\UserAPIController@settings');
 Route::get('translations', 'API\TranslationAPIController@translations');
 Route::get('supported_locales', 'API\TranslationAPIController@supportedLocales');
 Route::get('modules', 'API\ModuleAPIController@index');
-
+      
 Route::resource('e_providers', 'API\EProviderAPIController')->only(['index', 'show']);
 Route::any('e_providers_list', 'API\EProviderAPIController@list');
 Route::any('featured_providers_list', 'API\EProviderAPIController@featured_list');
@@ -66,6 +66,8 @@ Route::resource('custom_pages', 'API\CustomPageAPIController');
 Route::resource('categories', 'API\CategoryAPIController');
 
 Route::resource('e_services', 'API\EServiceAPIController');
+
+
 Route::resource('galleries', 'API\GalleryAPIController');
 Route::get('e_service_reviews/{id}', 'API\EServiceReviewAPIController@show');
 Route::get('e_service_reviews', 'API\EServiceReviewAPIController@index');
