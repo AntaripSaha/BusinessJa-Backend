@@ -26,13 +26,13 @@
             <div class="row mb-3 ">
                 <!-- /.col -->
                 <div class="col-9 m-auto">
-                    <button type="submit" class="btn btn-primary btn-block">{{__('auth.send_password')}}</button>
+                    <button type="submit" class="btn btn-primary btn-block green">{{__('auth.send_password')}}</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
         <p class="mb-0 text-center">
-            <a href="{{ url('/login') }}" class="text-center">{{__('auth.remember_password')}}</a>
+            <a class="text-green" href="{{ url('/login') }}" class="text-center">{{__('auth.remember_password')}}</a>
         </p>
     </div>
 @endsection

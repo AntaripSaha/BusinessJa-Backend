@@ -64,7 +64,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-block">{{__('auth.register')}}</button>
+                    <button type="submit" class="btn btn-primary btn-block green">{{__('auth.register')}}</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -78,11 +78,11 @@
                     </a>
                 @endif
                 @if(setting('enable_google',false))
-                    <a href="{{url('login/google')}}" class="btn btn-block btn-google"> <i class="fab fa-google mr-2"></i> {{__('auth.login_google')}}
+                    <a href="{{url('login/google')}}" class="btn btn-block btn-google green"> <i class="fab fa-google mr-2"></i> {{__('auth.login_google')}}
                     </a>
                 @endif
                 @if(setting('enable_twitter',false))
-                    <a href="{{url('login/twitter')}}" class="btn btn-block btn-twitter"> <i class="fab fa-twitter mr-2"></i> {{__('auth.login_twitter')}}
+                    <a href="{{url('login/twitter')}}" class="btn btn-block btn-twitter green"> <i class="fab fa-twitter mr-2"></i> {{__('auth.login_twitter')}}
                     </a>
                 @endif
             </div>
@@ -90,7 +90,7 @@
         @endif
 
         <p class="mb-1 text-center">
-            <a href="{{ url('/login') }}">{{__('auth.already_member')}}</a>
+            <a class="text-green" href="{{ url('/login') }}">{{__('auth.already_member')}}</a>
         </p>
     </div>
     <!-- /.login-card-body -->

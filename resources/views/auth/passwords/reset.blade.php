@@ -46,13 +46,13 @@
 
             <div class="row mb-2">
                 <div class="col-4 ml-auto">
-                    <button type="submit" class="btn btn-primary btn-block">{{__('auth.reset_password')}}</button>
+                    <button type="submit" class="btn btn-primary btn-block green">{{__('auth.reset_password')}}</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
         <p class="mb-1 text-center">
-            <a href="{{ url('/login') }}" class="text-center">{{__('auth.remember_password')}}</a>
+            <a class="text-green" href="{{ url('/login') }}" class="text-center">{{__('auth.remember_password')}}</a>
         </p>
     </div>
     <!-- /.login-card-body -->

@@ -15,7 +15,8 @@
 <body class="hold-transition login-page">
 <div class="login-box" @if(isset($width)) style="width:{{$width}}" @endif>
     <div class="login-logo">
-        <a href="{{ url('/') }}"><img src="{{$app_logo}}" alt="{{setting('app_name')}}"></a>
+        {{-- <a href="{{ url('http://localhost:3000/') }}"><img src="{{$app_logo}}" alt="{{setting('app_name')}}"></a> --}}
+        <a href="{{ url('http://localhost:3000/') }}"><img src="{{$app_logo}}"></a>
     </div>
     <!-- /.login-logo -->
     <div class="card shadow-sm">
@@ -25,6 +26,16 @@
 <!-- /.login-box -->
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+<style>
+    .green{
+        font-family: "Poppins", Times, serif  !important;
+        background: #188400 !important;
+        border-color:#188400 !important;
+    }
+    .text-green{
+        color: #188400 !important;
+    }
+</style>
 @stack('scripts')
 </body>
 </html>
