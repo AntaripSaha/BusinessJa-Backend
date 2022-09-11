@@ -1,6 +1,7 @@
 @extends('layouts.auth.default')
 @section('content')
 
+
     <div class="card-body login-card-body">
         <p class="login-box-msg">{{__('auth.login_title')}}</p>
 
