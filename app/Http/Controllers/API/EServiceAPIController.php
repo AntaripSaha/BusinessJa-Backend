@@ -99,7 +99,7 @@ class EServiceAPIController extends Controller
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
-        return $this->sendResponse($eServices, 'E Services retrieved successfully');
+        return $this->sendResponse($eServices, 'E Provider retrieved successfully');
     }
     /**
      * @param Collection $eServices

@@ -38,7 +38,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/user-type-custom';
 
     private $userRepository;
     private $uploadRepository;
@@ -86,11 +86,13 @@ class RegisterController extends Controller
         $user->password = Hash::make($data['password']);
         $user->api_token = Str::random(60);
         $user->save();
-
+         
         $defaultRoles = $this->roleRepository->findByField('default', '1');
         $defaultRoles = $defaultRoles->pluck('name')->toArray();
         $user->assignRole($defaultRoles);
 
         return $user;
+        
     }
+
 }

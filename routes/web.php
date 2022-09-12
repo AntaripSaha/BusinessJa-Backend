@@ -17,6 +17,9 @@
 |
 */
 
+use App\Http\Controllers\UserTypeController;
+
+
 Route::get('login/{service}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
 Auth::routes();
@@ -60,7 +63,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
     Route::post('uploads/store', 'UploadController@store')->name('medias.create');
+   
     Route::get('users/profile', 'UserController@profile')->name('users.profile');
+    Route::get('/user-type-custom','UserTypeController@index')->name('user.type');
+    Route::any('/user-type-store','UserTypeController@store')->name('user.store');
     Route::post('users/remove-media', 'UserController@removeMedia');
     Route::resource('users', 'UserController');
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
@@ -205,3 +211,5 @@ Route::middleware('auth')->group(function () {
         'show', 'edit', 'update', 'destroy'
     ]);
 });
+
+
