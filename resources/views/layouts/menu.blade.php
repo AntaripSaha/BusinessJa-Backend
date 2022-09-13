@@ -37,16 +37,16 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('eProviders*') ? 'active' : '' }}" href="{!! route('eProviders.index') !!}">@if($icons)
+                        <i class="nav-icon fas fa-list-alt"></i>@endif<p>{{trans('lang.e_provider_plural')}}</p></a>
+            </li>
             @can('eProviderTypes.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('eProviderTypes*') ? 'active' : '' }}" href="{!! route('eProviderTypes.index') !!}">@if($icons)
                             <i class="nav-icon fas fa-list-alt"></i>@endif<p>{{trans('lang.e_provider_type_plural')}}</p></a>
                 </li>
             @endcan
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('eProviders*') ? 'active' : '' }}" href="{!! route('eProviders.index') !!}">@if($icons)
-                        <i class="nav-icon fas fa-list-alt"></i>@endif<p>{{trans('lang.e_provider_plural')}}</p></a>
-            </li>
             @can('requestedEProviders.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('requestedEProviders*') ? 'active' : '' }}" href="{!! route('requestedEProviders.index') !!}">@if($icons)
@@ -102,7 +102,7 @@
     </li>
 @endcan
 
-@can('eServices.index')
+{{-- @can('eServices.index')
     <li class="nav-item has-treeview {{ Request::is('eServices*') || Request::is('options*') || Request::is('optionGroups*') || Request::is('eServiceReviews*') || Request::is('nutrition*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{  Request::is('eServices*') || Request::is('options*') || Request::is('optionGroups*') || Request::is('eServiceReviews*') || Request::is('nutrition*') ? 'active' : '' }}"> @if($icons)
                 <i class="nav-icon fas fa-pencil-ruler"></i>@endif
@@ -140,10 +140,10 @@
 
         </ul>
     </li>
-@endcan
+@endcan --}}
 
 {{--@can('bookings.index')--}}
-<li class="nav-item has-treeview {{ Request::is('bookings*') || Request::is('bookingStatuses*') || Request::is('deliveryAddresses*')? 'menu-open' : '' }}">
+{{-- <li class="nav-item has-treeview {{ Request::is('bookings*') || Request::is('bookingStatuses*') || Request::is('deliveryAddresses*')? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('bookings*') || Request::is('bookingStatuses*') || Request::is('deliveryAddresses*')? 'active' : '' }}"> @if($icons)
             <i class="nav-icon fas fa-calendar-check"></i>@endif
         <p>{{trans('lang.booking_plural')}} <i class="right fas fa-angle-left"></i>
@@ -163,24 +163,16 @@
                         <i class="nav-icon fas fa-server"></i>@endif<p>{{trans('lang.booking_status_plural')}}</p></a>
             </li>
         @endcan
-
-        {{--            @can('deliveryAddresses.index')--}}
-        {{--                <li class="nav-item">--}}
-        {{--                    <a class="nav-link {{ Request::is('deliveryAddresses*') ? 'active' : '' }}" href="{!! route('deliveryAddresses.index') !!}">@if($icons)--}}
-        {{--                            <i class="nav-icon fas fa-map"></i>@endif<p>{{trans('lang.delivery_address_plural')}}</p></a>--}}
-        {{--                </li>--}}
-        {{--            @endcan--}}
-
     </ul>
-</li>
+</li> --}}
 {{--@endcan--}}
 
-@can('coupons.index')
+{{-- @can('coupons.index')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('coupons*') ? 'active' : '' }}" href="{!! route('coupons.index') !!}">@if($icons)
                 <i class="nav-icon fas fa-ticket-alt"></i>@endif<p>{{trans('lang.coupon_plural')}} </p></a>
     </li>
-@endcan
+@endcan --}}
 @can('faqs.index')
     <li class="nav-item {{ Request::is('faqCategories*') || Request::is('faqs*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('faqs*') || Request::is('faqCategories*') ? 'active' : '' }}"> @if($icons)
@@ -265,7 +257,7 @@
         </ul>
     </li>
 @endcan
-@can('wallets.index')
+{{-- @can('wallets.index')
     <li class="nav-item has-treeview {{ Request::is('wallet*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('wallet*') ? 'active' : '' }}"> @if($icons)
                 <i class="nav-icon fas fa-wallet"></i>@endif
@@ -286,7 +278,7 @@
 
         </ul>
     </li>
-@endcan
+@endcan --}}
 @can('earnings.index')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('earnings*') ? 'active' : '' }}" href="{!! route('earnings.index') !!}">@if($icons)

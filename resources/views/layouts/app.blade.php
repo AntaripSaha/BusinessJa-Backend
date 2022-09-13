@@ -2,7 +2,12 @@
 <html lang="{{app()->getLocale()}}">
 <head>
     <meta charset="UTF-8">
-    <title>{{setting('app_name')}} | {{setting('app_short_description')}}</title>
+    @if(setting('app_name') == '0')
+    <title>{{setting('app_short_description')}}</title>
+    @else
+        <title>{{setting('app_name')}} | {{setting('app_short_description')}}</title> 
+    @endif
+    
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link rel="icon" type="image/png" href="{{$app_logo ?? ''}}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
