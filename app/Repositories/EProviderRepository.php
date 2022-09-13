@@ -28,6 +28,7 @@ class EProviderRepository extends BaseRepository
     protected $fieldSearchable = [
         'name',
         'e_provider_type_id',
+        'category_id',
         'description',
         'phone_number',
         'mobile_number',

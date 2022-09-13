@@ -36,10 +36,18 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\View\View;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
+use App\Repositories\CategoryRepository;
 
 class EProviderController extends Controller
 {
-    /** @var  EProviderRepository */
+    /** @var  CategoryRepository */
+    private $categoryRepository;
+
+    /**
+     
+    /** 
+     * @var  EProviderRepository 
+     */
     private $eProviderRepository;
 
     /**
@@ -72,9 +80,11 @@ class EProviderController extends Controller
         , EProviderTypeRepository                   $eProviderTypeRepo
         , UserRepository                            $userRepo
         , AddressRepository                         $addressRepo
+        ,CategoryRepository                         $categoryRepo
         , TaxRepository                             $taxRepo)
     {
         parent::__construct();
+        $this->categoryRepository = $categoryRepo;
         $this->eProviderRepository = $eProviderRepo;
         $this->customFieldRepository = $customFieldRepo;
         $this->uploadRepository = $uploadRepo;
@@ -113,6 +123,7 @@ class EProviderController extends Controller
      */
     public function create()
     {
+        $parentCategory = $this->categoryRepository->pluck('name', 'id');
         $eProviderType = $this->eProviderTypeRepository->getByCriteria(new EnabledCriteria())->pluck('name', 'id');
         $user = $this->userRepository->getByCriteria(new EProvidersCustomersCriteria())->pluck('name', 'id');
         $address = $this->addressRepository->getByCriteria(new AddressesOfUserCriteria(auth()->id()))->pluck('address', 'id');
@@ -125,7 +136,7 @@ class EProviderController extends Controller
             $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->eProviderRepository->model());
             $html = generateCustomField($customFields);
         }
-        return view('e_providers.create')->with("customFields", isset($html) ? $html : false)->with("eProviderType", $eProviderType)->with("user", $user)->with("usersSelected", $usersSelected)->with("address", $address)->with("addressesSelected", $addressesSelected)->with("tax", $tax)->with("taxesSelected", $taxesSelected);
+        return view('e_providers.create')->with("parentCategory", $parentCategory)->with("customFields", isset($html) ? $html : false)->with("eProviderType", $eProviderType)->with("user", $user)->with("usersSelected", $usersSelected)->with("address", $address)->with("addressesSelected", $addressesSelected)->with("tax", $tax)->with("taxesSelected", $taxesSelected);
     }
 
     /**
@@ -200,6 +211,7 @@ class EProviderController extends Controller
             Flash::error(__('lang.not_found', ['operator' => __('lang.e_provider')]));
             return redirect(route('eProviders.index'));
         }
+        $parentCategory = $this->categoryRepository->pluck('name', 'id');
         $eProviderType = $this->eProviderTypeRepository->getByCriteria(new EnabledCriteria())->pluck('name', 'id');
         $user = $this->userRepository->getByCriteria(new EProvidersCustomersCriteria())->pluck('name', 'id');
         $address = $this->addressRepository->getByCriteria(new AddressesOfUserCriteria(auth()->id()))->pluck('address', 'id');
@@ -215,7 +227,7 @@ class EProviderController extends Controller
             $html = generateCustomField($customFields, $customFieldsValues);
         }
 
-        return view('e_providers.edit')->with('eProvider', $eProvider)->with("customFields", isset($html) ? $html : false)->with("eProviderType", $eProviderType)->with("user", $user)->with("usersSelected", $usersSelected)->with("address", $address)->with("addressesSelected", $addressesSelected)->with("tax", $tax)->with("taxesSelected", $taxesSelected);
+        return view('e_providers.edit')->with("parentCategory", $parentCategory)->with('eProvider', $eProvider)->with("customFields", isset($html) ? $html : false)->with("eProviderType", $eProviderType)->with("user", $user)->with("usersSelected", $usersSelected)->with("address", $address)->with("addressesSelected", $addressesSelected)->with("tax", $tax)->with("taxesSelected", $taxesSelected);
     }
 
     /**

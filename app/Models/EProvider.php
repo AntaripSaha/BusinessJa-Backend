@@ -83,6 +83,7 @@ class EProvider extends Model implements HasMedia, Castable
     public $fillable = [
         'name',
         'e_provider_type_id',
+        'category_id',
         'description',
         'phone_number',
         'mobile_number',

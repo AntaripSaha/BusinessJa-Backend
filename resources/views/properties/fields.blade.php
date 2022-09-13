@@ -82,21 +82,12 @@
         </div>
     </div>
 
-    {{-- <!-- Users Field -->
+    <!-- Users Field -->
     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
         {!! Form::label('users[]', trans("lang.e_provider_users"),['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
         <div class="col-md-9">
             {!! Form::select('users[]', $user, $usersSelected, ['class' => 'select2 form-control' , 'multiple'=>'multiple']) !!}
             <div class="form-text text-muted">{{ trans("lang.e_provider_users_help") }}</div>
-        </div>
-    </div> --}}
-
-    <!-- Parent Id Field -->
-    <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
-        {!! Form::label('category_id', trans("lang.category_parent_id"),['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
-        <div class="col-md-9">
-            {!! Form::select('category_id', $parentCategory, null, ['data-empty'=>trans("lang.category_parent_id_placeholder"), 'class' => 'select2 not-required form-control']) !!}
-            <div class="form-text text-muted">{{ trans("lang.category_parent_id_help") }}</div>
         </div>
     </div>
 

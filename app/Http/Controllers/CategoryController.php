@@ -63,7 +63,6 @@ class CategoryController extends Controller
     public function create()
     {
         $parentCategory = $this->categoryRepository->pluck('name', 'id');
-
         $hasCustomField = in_array($this->categoryRepository->model(), setting('custom_field_models', []));
         if ($hasCustomField) {
             $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->categoryRepository->model());

@@ -1115,6 +1115,7 @@ return [
     'e_provider_addresses_placeholder' => 'Select Addresses',
     'e_provider_users' => 'Employees',
     'e_provider_users_help' => 'Select Employees',
+    'category' => 'Category',
     'e_provider_users_placeholder' => 'Select Employees',
     'e_provider_taxes' => 'Taxes',
     'e_provider_taxes_help' => 'Select Taxes',
