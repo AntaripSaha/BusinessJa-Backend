@@ -17,6 +17,8 @@ use App\DataTables\RequestedEProviderDataTable;
 use App\Events\EProviderChangedEvent;
 use App\Http\Requests\CreateEProviderRequest;
 use App\Http\Requests\UpdateEProviderRequest;
+use App\Http\Resources\CategoryCollection;
+use App\Models\Category;
 use App\Repositories\AddressRepository;
 use App\Repositories\CustomFieldRepository;
 use App\Repositories\EProviderRepository;
@@ -123,7 +125,8 @@ class EProviderController extends Controller
      */
     public function create()
     {
-        $parentCategory = $this->categoryRepository->pluck('name', 'id');
+      $parentCategory = new CategoryCollection(Category::where('parent_id', null)->pluck('name', 'id'));
+    //   return $parentCategory =  $parentCategory->where('parent_id', 'NULL')->pluck('id', 'name', 'parent_id');
         $eProviderType = $this->eProviderTypeRepository->getByCriteria(new EnabledCriteria())->pluck('name', 'id');
         $user = $this->userRepository->getByCriteria(new EProvidersCustomersCriteria())->pluck('name', 'id');
         $address = $this->addressRepository->getByCriteria(new AddressesOfUserCriteria(auth()->id()))->pluck('address', 'id');
@@ -211,7 +214,7 @@ class EProviderController extends Controller
             Flash::error(__('lang.not_found', ['operator' => __('lang.e_provider')]));
             return redirect(route('eProviders.index'));
         }
-        $parentCategory = $this->categoryRepository->pluck('name', 'id');
+        $parentCategory = new CategoryCollection(Category::where('parent_id', null)->pluck('name', 'id'));
         $eProviderType = $this->eProviderTypeRepository->getByCriteria(new EnabledCriteria())->pluck('name', 'id');
         $user = $this->userRepository->getByCriteria(new EProvidersCustomersCriteria())->pluck('name', 'id');
         $address = $this->addressRepository->getByCriteria(new AddressesOfUserCriteria(auth()->id()))->pluck('address', 'id');
