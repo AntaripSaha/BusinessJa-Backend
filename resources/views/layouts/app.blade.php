@@ -9,7 +9,8 @@
     @endif
     
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <link rel="icon" type="image/png" href="{{$app_logo ?? ''}}"/>
+    {{-- <link rel="icon" type="image/png" href="{{$app_logo ?? ''}}"/> --}}
+    <link rel="icon" type="image/png" href="{{asset('images/logo_default.png')}}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}">
 

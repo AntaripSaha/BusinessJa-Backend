@@ -55,6 +55,7 @@ Route::get('modules', 'API\ModuleAPIController@index');
 Route::resource('e_providers', 'API\EProviderAPIController')->only(['index', 'show']);
 Route::any('e_providers_list', 'API\EProviderAPIController@list');
 Route::any('featured_providers_list', 'API\EProviderAPIController@featured_list');
+Route::any('cat_providers', 'API\EProviderAPIController@category_wise_list');
 Route::resource('availability_hours', 'API\AvailabilityHourAPIController')->only(['index', 'show']);
 Route::resource('awards', 'API\AwardAPIController')->only(['index', 'show']);
 Route::resource('experiences', 'API\ExperienceAPIController')->only(['index', 'show']);

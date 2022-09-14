@@ -100,6 +100,20 @@ class EProviderAPIController extends Controller
         }
         return $this->sendResponse($eProviders->toArray(), 'E Providers retrieved successfully');
     }
+    public function category_wise_list(Request $request)
+    {
+        try {
+            $catId = $request->category_id;
+            $this->eProviderRepository->pushCriteria(new RequestCriteria($request));
+            $this->eProviderRepository->pushCriteria(new AcceptedCriteria());
+            $this->eProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $eProviders = $this->eProviderRepository->where('category_id',$catId)->get();
+            $this->filterCollection($request, $eProviders);
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
+        return $this->sendResponse($eProviders->toArray(), 'E Providers retrieved successfully');
+    }
     /**
      * Display the specified EProvider.
      * GET|HEAD /eProviders/{id}

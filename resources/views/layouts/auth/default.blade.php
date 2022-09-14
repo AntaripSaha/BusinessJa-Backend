@@ -10,7 +10,8 @@
     @else
         <title>{{setting('app_name')}} | {{setting('app_short_description')}}</title> 
     @endif
-    <link rel="icon" type="image/png" href="{{$app_logo ?? ''}}"/>
+    {{-- <link rel="icon" type="image/png" href="{{$app_logo ?? ''}}"/> --}}
+    <link rel="icon" type="image/png" href="{{asset('images/logo_default.png')}}"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=fallback">
     <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css')}}">
@@ -21,59 +22,103 @@
 
 <body>
     <header style="background-color: #f8f9fa!important">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                {{-- <a class="navbar-brand" href="#">BusinessJA</a> --}}
-               
-                <div class="nav-resize">
-                    <a href="{{ url('https://yellowpageja.com/')}}"> <img src="{{asset('images\logo_default.png')}}" height="32px" width="auto"></a>
-                </div>
-              
-                <div class="collapse navbar-collapse nav-custom nav-resize" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto mt-2 ml-5 mt-lg-0">
-                    <li class="nav-item">
-                      <a class="nav-link nav-text" href="https://yellowpageja.com/">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link nav-text" href="https://yellowpageja.com/categories">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link nav-text" href="https://yellowpageja.com/help">Help & Support</a>
-                    </li>
-                    
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <ul class="navbar-nav mr-auto mt-2 ml-5 mt-lg-0">
-                        {{-- <li class="nav-item">
-                          <a class="nav-link nav-text" href="https://yellowpageja.com/">
-                            Select Your Address
-                            <svg xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: auto;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                            </svg>
-                        </a>
-                        </li> --}}
-                        <li class="nav-item">
-                          {{-- <a class="nav-link nav-text" href="#">English</a> --}}
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link nav-text" href="https://admin.yellowpageja.com/login">Login</a>
-                        </li>
-                      </ul>
-                    {{-- <button class="btn btn-outline-success my-2 mr-2 my-sm-0" type="submit">Select Your Address</button> --}}
-                    {{-- <button class="btn btn-secondary mr-2 my-2 my-sm-0" type="submit">Login</button> --}}
-                    <a href="https://admin.yellowpageja.com/register">
-                        <button class="btn btn-success my-2 my-sm-0 mr-2" style="background-color: #188400;" type="button">Register</button>
+      <div class="container nav-resize desktop">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            {{-- <a class="navbar-brand" href="#">BusinessJA</a> --}}
+            <a href="{{ url('https://yellowpageja.com/')}}"> <img src="{{asset('images\logo_default.png')}}" height="32px" width="auto"></a>
+            <div class="collapse navbar-collapse nav-custom" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto mt-2 ml-2 mt-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link nav-text" href="https://yellowpageja.com/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-text" href="https://yellowpageja.com/categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-text" href="https://yellowpageja.com/help">Help & Support</a>
+                </li>
+                
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto mt-2 ml-5 mt-lg-0">
+                    {{-- <li class="nav-item">
+                      <a class="nav-link nav-text" href="https://yellowpageja.com/">
+                        Select Your Address
+                        <svg xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: auto;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                        </svg>
                     </a>
-                    
-                  </form>
-                </div>
-            </nav>
+                    </li> --}}
+                    <li class="nav-item">
+                      {{-- <a class="nav-link nav-text" href="#">English</a> --}}
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link nav-text" href="https://admin.yellowpageja.com/login">Login</a>
+                    </li>
+                  </ul>
+                {{-- <button class="btn btn-outline-success my-2 mr-2 my-sm-0" type="submit">Select Your Address</button> --}}
+                {{-- <button class="btn btn-secondary mr-2 my-2 my-sm-0" type="submit">Login</button> --}}
+                <a href="https://admin.yellowpageja.com/register">
+                    <button class="btn btn-success my-2 my-sm-0 mr-2" style="background-color: #188400;" type="button">Register</button>
+                </a>
+              </form>
+            </div>
+        </nav>
+    </div>
+    <div class=" mobile">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            {{-- <a class="navbar-brand" href="#">BusinessJA</a> --}}
+            <a href="{{ url('https://yellowpageja.com/')}}"> <img src="{{asset('images\logo_default.png')}}" height="32px" width="auto"></a>
+          
+            <div class="collapse navbar-collapse nav-custom" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto mt-2 ml-2 mt-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link nav-text" href="https://yellowpageja.com/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-text" href="https://yellowpageja.com/categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav-text" href="https://yellowpageja.com/help">Help & Support</a>
+                </li>
+                
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto mt-2 ml-5 mt-lg-0">
+                    {{-- <li class="nav-item">
+                      <a class="nav-link nav-text" href="https://yellowpageja.com/">
+                        Select Your Address
+                        <svg xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: auto;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                        </svg>
+                    </a>
+                    </li> --}}
+                    <li class="nav-item">
+                      {{-- <a class="nav-link nav-text" href="#">English</a> --}}
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link nav-text" href="https://admin.yellowpageja.com/login">Login</a>
+                    </li>
+                  </ul>
+                {{-- <button class="btn btn-outline-success my-2 mr-2 my-sm-0" type="submit">Select Your Address</button> --}}
+                {{-- <button class="btn btn-secondary mr-2 my-2 my-sm-0" type="submit">Login</button> --}}
+                <a href="https://admin.yellowpageja.com/register">
+                    <button class="btn btn-success my-2 my-sm-0 mr-2" style="background-color: #188400;" type="button">Register</button>
+                </a>
+                
+              </form>
+            </div>
+        </nav>
 
-        </div>
+    </div>
         
     </header>
     
@@ -81,7 +126,7 @@
         <div class="login-box" @if(isset($width)) style="width:{{$width}}" @endif>
             <div class="login-logo">
                 {{-- <a href="{{ url('http://localhost:3000/') }}"><img src="{{$app_logo}}" alt="{{setting('app_name')}}"></a> --}}
-                <a href="{{ url('http://localhost:3000/') }}"><img src="{{$app_logo}}"></a>
+                <a href="{{ url('https://yellowpageja.com/') }}"><img src="{{$app_logo}}"></a>
             </div>
             <!-- /.login-logo -->
             <div class="card shadow-sm">
@@ -115,9 +160,18 @@
         font-weight: 600 !important; */
     }
     .nav-resize{
-        max-width: 80% !important;
-        margin-left: 10% !important;
+      max-width: 45% !important;
+      margin-left: 27% !important;
     }
+    .mobile{
+      display: none;
+    }
+  @media screen and (max-width: 990px) and (min-width: 300px) {
+    .desktop{
+      display: block  ;
+    }
+  
+  }
 </style>
 @stack('scripts')
 </body>
