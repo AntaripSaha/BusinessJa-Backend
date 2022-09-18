@@ -141,6 +141,10 @@ class EProvider extends Model implements HasMedia, Castable
     {
         return $this->morphMany('App\Models\Discountable', 'discountable');
     }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 
     /**
      * @param Media|null $media

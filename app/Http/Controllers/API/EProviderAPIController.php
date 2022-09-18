@@ -14,6 +14,7 @@ use App\Criteria\EProviders\EProvidersOfUserCriteria;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEProviderRequest;
 use App\Http\Requests\UpdateEProviderRequest;
+use App\Models\Category;
 use App\Models\EProvider;
 use App\Repositories\EProviderRepository;
 use App\Repositories\UploadRepository;
@@ -100,19 +101,29 @@ class EProviderAPIController extends Controller
         }
         return $this->sendResponse($eProviders->toArray(), 'E Providers retrieved successfully');
     }
-    public function category_wise_list(Request $request)
+    public function category_wise_list(Request $request): JsonResponse
     {
         try {
-            $catId = $request->category_id;
             $this->eProviderRepository->pushCriteria(new RequestCriteria($request));
             $this->eProviderRepository->pushCriteria(new AcceptedCriteria());
             $this->eProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
-            $eProviders = $this->eProviderRepository->where('category_id',$catId)->get();
+            $eProviders = $this->eProviderRepository->where('category_id', $request->category_id)->get();
+            // $category = Category::where('id', $request->category_id)->pluck('name');
+            // $eProviders->$category;
             $this->filterCollection($request, $eProviders);
         } catch (Exception $e) {
             return $this->sendError($e->getMessage());
         }
         return $this->sendResponse($eProviders->toArray(), 'E Providers retrieved successfully');
+    }
+    public function category_name(Request $request): JsonResponse
+    {
+        try {
+            $category = Category::where('id', $request->category_id)->pluck('name');
+        } catch (Exception $e) {
+            return $this->sendError($e->getMessage());
+        }
+        return $this->sendResponse($category->toArray(), 'E Providers retrieved successfully');
     }
     /**
      * Display the specified EProvider.
