@@ -88,6 +88,9 @@ class EProvider extends Model implements HasMedia, Castable
         'phone_number',
         'mobile_number',
         'availability_range',
+        'facebook',
+        'twitter',
+        'youtube',
         'available',
         'featured',
         'accepted'

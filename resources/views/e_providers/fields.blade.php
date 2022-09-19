@@ -173,6 +173,37 @@
         </div>
     </div>
 
+      <!-- Facebook Field -->
+      <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
+        {!! Form::label('facebook', 'Facebook', ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
+        <div class="col-md-9">
+            {!! Form::text('facebook', 'https://www.facebook.com',  ['class' => 'form-control','placeholder'=>  "Facebook Url"]) !!}
+            <div class="form-text text-muted">
+                Enter Facebook Url
+            </div>
+        </div>
+    </div>
+      <!-- Twitter Field -->
+      <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
+        {!! Form::label('twitter', "Twitter", ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
+        <div class="col-md-9">
+            {!! Form::text('twitter', 'https://www.twitter.com',  ['class' => 'form-control','placeholder'=>  "Twitter Url"]) !!}
+            <div class="form-text text-muted">
+                Enter Twitter Url
+            </div>
+        </div>
+    </div>
+      <!-- Youtube Field -->
+      <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
+        {!! Form::label('youtube', "Youtube", ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
+        <div class="col-md-9">
+            {!! Form::text('youtube', 'https://www.youtube.com',  ['class' => 'form-control','placeholder'=>  "Youtube Url"]) !!}
+            <div class="form-text text-muted">
+                Enter Youtube Url
+            </div>
+        </div>
+    </div>
+
 </div>
 @if($customFields)
     <div class="clearfix"></div>
