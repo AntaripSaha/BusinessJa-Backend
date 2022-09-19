@@ -78,6 +78,7 @@ Route::resource('currencies', 'API\CurrencyAPIController');
 Route::resource('slides', 'API\SlideAPIController')->except([
     'show'
 ]);
+Route::get('slides_center', 'API\SlideAPIController@center');
 Route::resource('booking_statuses', 'API\BookingStatusAPIController')->except([
     'show'
 ]);

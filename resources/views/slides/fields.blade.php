@@ -52,6 +52,17 @@
             <div class="form-text text-muted">{{ trans("lang.slide_text_position_help") }}</div>
         </div>
     </div>
+    <!-- Slider Position Field -->
+    <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
+        {!! Form::label('position', "Banner Position",['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
+        <div class="col-md-9">
+            {!! Form::select('position', [
+            '0' => "Header Banner",
+            '1' => "Center Banner",
+            ], null, ['class' => 'select2 form-control']) !!}
+            <div class="form-text text-muted">Enter Banner Position</div>
+        </div>
+    </div>
 
     <!-- Text Color Field -->
     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">

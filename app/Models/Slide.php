@@ -69,6 +69,7 @@ class Slide extends Model implements HasMedia
         'text',
         'button',
         'text_position',
+        'position',
         'text_color',
         'button_color',
         'background_color',

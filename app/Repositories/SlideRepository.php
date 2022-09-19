@@ -30,6 +30,7 @@ class SlideRepository extends BaseRepository
         'text',
         'button',
         'text_position',
+        'position',
         'text_color',
         'button_color',
         'background_color',

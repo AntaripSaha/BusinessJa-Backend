@@ -51,7 +51,21 @@ class SlideAPIController extends Controller
         } catch (RepositoryException $e) {
             return $this->sendError($e->getMessage());
         }
-        $slides = $this->slideRepository->all();
+        $slides = $this->slideRepository->where('position', 0)->get();
+
+        return $this->sendResponse($slides->toArray(), 'Slides retrieved successfully');
+    }
+    public function center(Request $request)
+    {
+        try {
+            $this->slideRepository->pushCriteria(new RequestCriteria($request));
+            $this->slideRepository->pushCriteria(new LimitOffsetCriteria($request));
+            $this->slideRepository->pushCriteria(new OrderCriteria());
+            $this->slideRepository->pushCriteria(new EnabledCriteria());
+        } catch (RepositoryException $e) {
+            return $this->sendError($e->getMessage());
+        }
+        $slides = $this->slideRepository->where('position', 1)->get();
 
         return $this->sendResponse($slides->toArray(), 'Slides retrieved successfully');
     }
