@@ -14,8 +14,10 @@ use App\Criteria\EProviders\EProvidersOfUserCriteria;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEProviderRequest;
 use App\Http\Requests\UpdateEProviderRequest;
+use App\Http\Resources\EproviderReviewCollection;
 use App\Models\Category;
 use App\Models\EProvider;
+use App\Models\EServiceReview;
 use App\Repositories\EProviderRepository;
 use App\Repositories\UploadRepository;
 use Carbon\Carbon;
@@ -25,6 +27,7 @@ use Illuminate\Http\Request;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
+
 
 /**
  * Class EProviderController
@@ -66,6 +69,26 @@ class EProviderAPIController extends Controller
         }
 
         return $this->sendResponse($eProviders->toArray(), 'E Providers retrieved successfully');
+    }
+    public function review_e_provider(Request $request, $id) 
+    {
+        $e_provider_reviews =  EServiceReview::where('e_provider_id', $id)->with('user')->get();
+        try {
+            return response()->json([
+                "success"=> true,
+                "data"=>[
+                    "e_provider_reviews"=>$e_provider_reviews
+                ],
+                "message"=> "EProvider retrieved successfully"
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "success"=> false,
+                "data"=>[
+                ],
+                "message"=> $th
+            ]);
+        }
     }
     public function list(Request $request): JsonResponse
     {

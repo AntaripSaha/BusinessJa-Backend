@@ -268,7 +268,8 @@ class EProvider extends Model implements HasMedia, Castable
      **/
     public function eProviderReviews()
     {
-        return $this->hasManyThrough(EServiceReview::class, EService::class);
+        return $this->hasManyThrough(EServiceReview::class, EProvider::class);
+        
     }
 
     public function getHasValidSubscriptionAttribute(): ?bool
@@ -383,4 +384,5 @@ class EProvider extends Model implements HasMedia, Castable
     {
         return $this->hasMedia('image');
     }
+    
 }

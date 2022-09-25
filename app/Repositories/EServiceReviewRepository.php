@@ -29,7 +29,8 @@ class EServiceReviewRepository extends BaseRepository
         'review',
         'rate',
         'user_id',
-        'e_service_id'
+        'e_service_id',
+        'e_provider_id'
     ];
 
     /**

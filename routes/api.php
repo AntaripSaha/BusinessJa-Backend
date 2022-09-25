@@ -39,6 +39,7 @@ Route::prefix('provider')->group(function () {
         Route::get('employees', 'API\EProvider\UserAPIController@employees');
     });
 });
+Route::get('review_e_provider/{id}', 'API\EProviderAPIController@review_e_provider');
 
 Route::get('provider_list', 'API\EProvider\ProviderListAPIController@index');
 
@@ -109,6 +110,7 @@ Route::middleware('auth:api')->group(function () {
         'index'
     ]);
     Route::post('e_service_reviews', 'API\EServiceReviewAPIController@store')->name('e_service_reviews.store');
+    Route::post('e_provider_reviews', 'API\EServiceReviewAPIController@reviewstore')->name('e_provider_reviews.reviewstore');
 
 
     Route::resource('favorites', 'API\FavoriteAPIController');

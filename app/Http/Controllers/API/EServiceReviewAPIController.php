@@ -11,7 +11,10 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\EServiceReviews\EServiceReviewsOfUserCriteria;
 use App\Http\Controllers\Controller;
+use App\Models\EService;
+use App\Models\EServiceReview;
 use App\Repositories\EServiceReviewRepository;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -101,5 +104,17 @@ class EServiceReviewAPIController extends Controller
         }
 
         return $this->sendResponse($review->toArray(), __('lang.saved_successfully', ['operator' => __('lang.e_service_review')]));
+    }
+    public function reviewstore(Request $request) 
+    {
+       $review = new EServiceReview;
+       $review->review =  $request->review;
+       $review->rate =  $request->rate;
+       $review->user_id =  $request->user_id;
+       $review->e_provider_id =  $request->e_provider_id;
+       $review->save();
+       return response()->json([
+        "message"=>"data saved"
+       ]);
     }
 }

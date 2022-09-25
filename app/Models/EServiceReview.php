@@ -33,7 +33,8 @@ class EServiceReview extends Model
         'review',
         'rate',
         'user_id',
-        'e_service_id'
+        'e_service_id',
+        'e_provider_id'
     ];
 
     /**
@@ -44,7 +45,9 @@ class EServiceReview extends Model
     protected $casts = [
         'review' => 'string',
         'rate' => 'double',
-        'e_service_id' => 'integer'
+        'e_service_id' => 'integer',
+        'e_provider_id' => 'integer'
+
     ];
 
     /**
@@ -55,7 +58,8 @@ class EServiceReview extends Model
     public static $rules = [
         'rate' => 'required|numeric|max:5|min:0',
         'user_id' => 'required|exists:users,id',
-        'e_service_id' => 'required|exists:e_services,id'
+        'e_service_id' => 'required|exists:e_services,id',
+        'e_provider_id' => 'required|exists:e_services,id'
     ];
 
     /**
@@ -101,6 +105,10 @@ class EServiceReview extends Model
     public function eService()
     {
         return $this->belongsTo(EService::class, 'e_service_id', 'id');
+    }
+    public function eProvider()
+    {
+        return $this->belongsTo(EProvider::class, 'id', 'e_provider_id');
     }
 
 }
