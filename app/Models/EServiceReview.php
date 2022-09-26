@@ -59,7 +59,7 @@ class EServiceReview extends Model
         'rate' => 'required|numeric|max:5|min:0',
         'user_id' => 'required|exists:users,id',
         'e_service_id' => 'required|exists:e_services,id',
-        'e_provider_id' => 'required|exists:e_services,id'
+        'e_provider_id' => 'required|exists:e_providers,id'
     ];
 
     /**

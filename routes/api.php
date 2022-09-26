@@ -29,7 +29,6 @@ Route::prefix('provider')->group(function () {
     Route::get('supported_locales', 'API\TranslationAPIController@supportedLocales');
     Route::middleware('auth:api')->group(function () {
         Route::resource('e_providers', 'API\EProvider\EProviderAPIController')->only(['index', 'show']);
-        
         Route::get('e_services', 'API\EProvider\EServiceAPIController@index');
         Route::resource('availability_hours', 'API\AvailabilityHourAPIController')->only(['store', 'update', 'destroy']);
         Route::resource('awards', 'API\AwardAPIController')->only(['store', 'update', 'destroy']);

@@ -15,6 +15,7 @@ use App\Models\EService;
 use App\Models\EServiceReview;
 use App\Repositories\EServiceReviewRepository;
 use GuzzleHttp\Psr7\Message;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -107,14 +108,27 @@ class EServiceReviewAPIController extends Controller
     }
     public function reviewstore(Request $request) 
     {
-       $review = new EServiceReview;
-       $review->review =  $request->review;
-       $review->rate =  $request->rate;
-       $review->user_id =  $request->user_id;
-       $review->e_provider_id =  $request->e_provider_id;
-       $review->save();
-       return response()->json([
-        "message"=>"data saved"
-       ]);
+        // $validated = $request->validate([
+        //     'rate' => 'required',
+        //     'review' => 'required|max:255',
+        // ]);
+        try {
+            $review = new EServiceReview;
+            $review->review =  $request->review;
+            $review->rate =  $request->rate;
+            $review->user_id =  $request->user_id;
+            $review->e_provider_id =  $request->e_provider_id;
+            $review->save();
+            return response()->json([
+                "success"=>200,
+                "message"=>"data saved"
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "success"=>404,
+                "message"=>"Data Error"
+            ]);
+        }
+       
     }
 }

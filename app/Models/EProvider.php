@@ -264,11 +264,12 @@ class EProvider extends Model implements HasMedia, Castable
     }
 
     /**
-     * @return HasManyThrough
+    //  * @return HasManyThrough
      **/
     public function eProviderReviews()
     {
-        return $this->hasManyThrough(EServiceReview::class, EProvider::class);
+        return $this->hasMany(EServiceReview::class);
+        // return $this->hasManyThrough(EServiceReview::class, EProvider::class);
         
     }
 
