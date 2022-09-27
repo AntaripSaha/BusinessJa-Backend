@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ApiResponder;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -22,7 +23,7 @@ use InfyOm\Generator\Utils\ResponseUtil;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, ApiResponder;
 
     public function __construct()
     {
@@ -47,6 +48,12 @@ class Controller extends BaseController
     {
         return Response::json(ResponseUtil::makeError($error), $code);
     }
+
+    // public function success($message,$data,$code=200){
+    //     return [
+    //         'status'=>'success'
+    //     ];
+    // }
 
 
     /**

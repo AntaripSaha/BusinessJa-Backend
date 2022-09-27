@@ -98,7 +98,7 @@ class EServiceReview extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
+ 
     /**
      * @return BelongsTo
      **/
@@ -108,7 +108,7 @@ class EServiceReview extends Model
     }
     public function eProvider()
     {
-        return $this->belongsTo(EProvider::class, 'id', 'e_provider_id');
+        return $this->belongsTo(EProvider::class, 'e_provider_id', 'id');
     }
 
 }

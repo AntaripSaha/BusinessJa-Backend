@@ -11,9 +11,12 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\EServiceReviews\EServiceReviewsOfUserCriteria;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EproviderReviewCollection;
+use App\Http\Resources\ReviewResource;
 use App\Models\EService;
 use App\Models\EServiceReview;
 use App\Repositories\EServiceReviewRepository;
+use Dotenv\Result\Success;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\JsonResponse;
@@ -22,6 +25,8 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
 
 /**
  * Class EServiceReviewController
@@ -96,6 +101,9 @@ class EServiceReviewAPIController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+         $validated = $request->validate([
+                'rate' => 'required'
+            ]);
         $uniqueInput = $request->only("user_id", "e_service_id");
         $otherInput = $request->except("user_id", "e_service_id");
         try {
@@ -113,6 +121,15 @@ class EServiceReviewAPIController extends Controller
         //     'review' => 'required|max:255',
         // ]);
         try {
+            $user_id = EServiceReview::where('user_id', $request->user_id)->where('e_provider_id', $request->e_provider_id)->pluck('id');
+
+            if($user_id){
+                return response()->json([
+                    "data"=>$user_id,
+                    "success"=>200,
+                    "message"=>"You've already given a review"
+                ]);
+            }
             $review = new EServiceReview;
             $review->review =  $request->review;
             $review->rate =  $request->rate;
@@ -130,5 +147,35 @@ class EServiceReviewAPIController extends Controller
             ]);
         }
        
+    }
+    public function get_user_reviews(Request $request) 
+    {
+        if($request->user_id && $request->e_provider_id){
+            $user_id = EServiceReview::where('user_id', $request->user_id)->where('e_provider_id', $request->e_provider_id)->select('id', 'review', 'user_id', 'e_provider_id')->first();
+            try {
+                if($user_id){
+                    return response()->json([
+                        "success"=>200,
+                        "data"=>$user_id,
+                        "message"=>"Review Retrived Successfully"
+                    ]);
+                }else{
+                    return response()->json([
+                        "success"=>404,
+                        "message"=>"No Data Found"
+                    ]);
+                }
+            } catch (\Throwable $th) {
+                return response()->json([
+                    "success"=>false,
+                    "message"=>$th
+                ]);
+            }
+        }else{
+          $items = ReviewResource::collection(EServiceReview::where('user_id', $request->user_id)->with('eProvider')->get());
+          return $this->success('Review Retrived Successfully',[
+            'items'=>$items
+          ]);
+        }
     }
 }

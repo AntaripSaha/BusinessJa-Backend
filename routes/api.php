@@ -109,6 +109,7 @@ Route::middleware('auth:api')->group(function () {
         'index'
     ]);
     Route::post('e_service_reviews', 'API\EServiceReviewAPIController@store')->name('e_service_reviews.store');
+    Route::any('get_user_reviews', 'API\EServiceReviewAPIController@get_user_reviews');
     Route::post('e_provider_reviews', 'API\EServiceReviewAPIController@reviewstore')->name('e_provider_reviews.reviewstore');
 
 
