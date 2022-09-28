@@ -50,7 +50,7 @@ class Slide extends Model implements HasMedia
      * @var array
      */
     public static $rules = [
-        'text' => 'max:50',
+        'text' => 'max:150',
         'button' => 'max:50',
         'text_position' => 'required',
         'text_color' => 'max:36',
