@@ -41,7 +41,6 @@ class EServiceReviewAPIController extends Controller
     {
         $this->eServiceReviewRepository = $eServiceReviewRepo;
     }
-
     /**
      * Display a listing of the EServiceReview.
      * GET|HEAD /eServiceReviews
@@ -65,7 +64,6 @@ class EServiceReviewAPIController extends Controller
 
         return $this->sendResponse($eServiceReviews->toArray(), 'E Service Reviews retrieved successfully');
     }
-
     /**
      * Display the specified EServiceReview.
      * GET|HEAD /eServiceReviews/{id}
@@ -91,7 +89,6 @@ class EServiceReviewAPIController extends Controller
 
         return $this->sendResponse($eServiceReview->toArray(), 'E Service Review retrieved successfully');
     }
-
     /**
      * Store a newly created Review in storage.
      *
@@ -104,22 +101,17 @@ class EServiceReviewAPIController extends Controller
          $validated = $request->validate([
                 'rate' => 'required'
             ]);
-        $uniqueInput = $request->only("user_id", "e_service_id");
-        $otherInput = $request->except("user_id", "e_service_id");
+        $uniqueInput = $request->only("user_id", "e_provider_id");
+        $otherInput = $request->except("user_id", "e_provider_id");
         try {
             $review = $this->eServiceReviewRepository->updateOrCreate($uniqueInput, $otherInput);
         } catch (ValidatorException $e) {
             return $this->sendError(__('lang.not_found', ['operator' => __('lang.e_service_review')]));
         }
-
         return $this->sendResponse($review->toArray(), __('lang.saved_successfully', ['operator' => __('lang.e_service_review')]));
     }
     public function reviewstore(Request $request) 
     {
-        // $validated = $request->validate([
-        //     'rate' => 'required',
-        //     'review' => 'required|max:255',
-        // ]);
         try {
             $user_id = EServiceReview::where('user_id', $request->user_id)->where('e_provider_id', $request->e_provider_id)->pluck('id');
 
@@ -146,7 +138,6 @@ class EServiceReviewAPIController extends Controller
                 "message"=>"Data Error"
             ]);
         }
-       
     }
     public function get_user_reviews(Request $request) 
     {

@@ -19,9 +19,12 @@ class ReviewResource extends JsonResource
             'user_id'=> $this->user_id,
             'e_provider_id'=> $this->e_provider_id,
             'e_provider_name'=> $this->eProvider->name,
+            'e_provider_phone'=> $this->eProvider->phone_number,
             'review'=> $this->review,
             'rate'=> $this->rate,
-            'media'=> $this->media,
+            // 'test_data'=>$this->eProvider,
+            'has_media'=> $this->eProvider->has_media,
+            'media'=>$this->eProvider->media[0]->thumb,
         ];
     }
 }
