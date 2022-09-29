@@ -11,6 +11,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 
@@ -39,6 +40,9 @@ class Permissions
      */
     public function handle($request, Closure $next)
     {
+        if(auth()->check() && count(auth()->user()->roles) && in_array('customer',auth()->user()->roles->pluck('name')->toArray())) {
+            return abort(401, 'Register as Member.');
+        }
         $permission = $request->route()->getName();
         if ($this->match($request->route()) && auth()->user()->canNot($permission)) {
             if ($permission == 'dashboard') {
@@ -46,7 +50,6 @@ class Permissions
             }
             throw new UnauthorizedException(403, trans('error.permission') . ' <b>' . $permission . '</b>');
         }
-
         return $next($request);
     }
 

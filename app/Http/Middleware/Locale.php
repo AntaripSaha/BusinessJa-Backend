@@ -5,6 +5,7 @@ use Closure;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class Locale
@@ -19,6 +20,7 @@ class Locale
      */
     public function handle(Request $request, Closure $next)
     {
+        
         try {
             if (Session::has('locale')) {
                 $locale = Session::get('locale');
