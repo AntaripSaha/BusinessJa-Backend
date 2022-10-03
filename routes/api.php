@@ -40,6 +40,9 @@ Route::prefix('provider')->group(function () {
 });
 Route::any('receiver_info', 'API\UserAPIController@receiver_info');
 
+Route::any('events','EventController@show');
+Route::any('event_store','EventController@store');
+ 
 Route::get('review_e_provider/{id}', 'API\EProviderAPIController@review_e_provider');
 
 Route::get('provider_list', 'API\EProvider\ProviderListAPIController@index');

@@ -19,6 +19,8 @@ use App\Http\Requests\CreateEProviderRequest;
 use App\Http\Requests\UpdateEProviderRequest;
 use App\Http\Resources\CategoryCollection;
 use App\Models\Category;
+use App\Models\EProvider;
+use App\Models\User;
 use App\Repositories\AddressRepository;
 use App\Repositories\CustomFieldRepository;
 use App\Repositories\EProviderRepository;
@@ -208,6 +210,8 @@ class EProviderController extends Controller
      */
     public function edit(int $id)
     {
+
+        
         $this->eProviderRepository->pushCriteria(new EProvidersOfUserCriteria(auth()->id()));
         $eProvider = $this->eProviderRepository->findWithoutFail($id);
         if (empty($eProvider)) {
@@ -223,12 +227,15 @@ class EProviderController extends Controller
         $addressesSelected = $eProvider->addresses()->pluck('addresses.id')->toArray();
         $taxesSelected = $eProvider->taxes()->pluck('taxes.id')->toArray();
 
+        
+
         $customFieldsValues = $eProvider->customFieldsValues()->with('customField')->get();
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->eProviderRepository->model());
         $hasCustomField = in_array($this->eProviderRepository->model(), setting('custom_field_models', []));
         if ($hasCustomField) {
             $html = generateCustomField($customFields, $customFieldsValues);
         }
+        
 
         return view('e_providers.edit')->with("parentCategory", $parentCategory)->with('eProvider', $eProvider)->with("customFields", isset($html) ? $html : false)->with("eProviderType", $eProviderType)->with("user", $user)->with("usersSelected", $usersSelected)->with("address", $address)->with("addressesSelected", $addressesSelected)->with("tax", $tax)->with("taxesSelected", $taxesSelected);
     }
@@ -254,10 +261,11 @@ class EProviderController extends Controller
         $input = $request->all();
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->eProviderRepository->model());
         try {
-            $input['users'] = isset($input['users']) ? $input['users'] : [];
+            //$input['users'] = isset($input['users']) ? $input['users'] : [];
             $input['addresses'] = isset($input['addresses']) ? $input['addresses'] : [];
             $input['taxes'] = isset($input['taxes']) ? $input['taxes'] : [];
             $eProvider = $this->eProviderRepository->update($input, $id);
+
             if (isset($input['image']) && $input['image'] && is_array($input['image'])) {
                 foreach ($input['image'] as $fileUuid) {
                     $cacheUpload = $this->uploadRepository->getByUuid($fileUuid);
@@ -273,7 +281,8 @@ class EProviderController extends Controller
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }
-
+        // $user = EProvider::where('id', $id)->first();
+        // $user->eProviders()->sync($eProvider->id);
         Flash::success(__('lang.updated_successfully', ['operator' => __('lang.e_provider')]));
 
         return redirect(route('eProviders.index'));
