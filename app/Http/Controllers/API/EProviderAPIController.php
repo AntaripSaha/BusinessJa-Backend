@@ -18,6 +18,7 @@ use App\Http\Resources\EproviderReviewCollection;
 use App\Models\Category;
 use App\Models\EProvider;
 use App\Models\EServiceReview;
+use App\Models\User;
 use App\Repositories\EProviderRepository;
 use App\Repositories\UploadRepository;
 use Carbon\Carbon;
@@ -205,7 +206,12 @@ class EProviderAPIController extends Controller
                 $input['featured'] = 0;
                 $input['available'] = 1;
             }
+
+            $user = User::where('id', auth()->id())->first();
+
             $eProvider = $this->eProviderRepository->create($input);
+            $user->eProviders()->sync($eProvider->id);
+            
             if (isset($input['image']) && $input['image'] && is_array($input['image'])) {
                 foreach ($input['image'] as $fileUuid) {
                     $cacheUpload = $this->uploadRepository->getByUuid($fileUuid);

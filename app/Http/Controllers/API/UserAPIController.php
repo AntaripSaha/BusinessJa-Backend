@@ -18,6 +18,7 @@ use App\Repositories\UserRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -133,7 +134,18 @@ class UserAPIController extends Controller
 
         return $this->sendResponse($user->load('roles'), 'User retrieved successfully');
     }
-
+    function receiver_info(Request $request)
+    {
+        $user_api = User::where('api_token', $request->api_token)->first();
+        $e_provider_users = DB::table('e_provider_users')->where('e_provider_id', $request->id)->first();
+        if($user_api){
+           return response()->json([
+            'success'=>true,
+            'data'=> User::where('id', $e_provider_users->user_id)->select("id", "name","email","phone_number","api_token","device_token")->first(),
+            'message'=>'User retrieved successfully',
+           ]);
+        }
+    }
     function settings(Request $request)
     {
         $settings = setting()->all();

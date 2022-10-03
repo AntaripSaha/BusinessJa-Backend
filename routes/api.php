@@ -38,6 +38,8 @@ Route::prefix('provider')->group(function () {
         Route::get('employees', 'API\EProvider\UserAPIController@employees');
     });
 });
+Route::any('receiver_info', 'API\UserAPIController@receiver_info');
+
 Route::get('review_e_provider/{id}', 'API\EProviderAPIController@review_e_provider');
 
 Route::get('provider_list', 'API\EProvider\ProviderListAPIController@index');
