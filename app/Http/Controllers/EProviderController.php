@@ -212,8 +212,6 @@ class EProviderController extends Controller
      */
     public function edit(int $id)
     {
- 
-        
         $this->eProviderRepository->pushCriteria(new EProvidersOfUserCriteria(auth()->id()));
         $eProvider = $this->eProviderRepository->findWithoutFail($id);
         if (empty($eProvider)) {
@@ -228,7 +226,7 @@ class EProviderController extends Controller
         $usersSelected = $eProvider->users()->pluck('users.id')->toArray();
         $addressesSelected = $eProvider->addresses()->pluck('addresses.id')->toArray();
         $taxesSelected = $eProvider->taxes()->pluck('taxes.id')->toArray();
-          $available = DB::table('e_providers')->where('id', $id)->pluck('available');
+        $available = DB::table('e_providers')->where('id', $id)->pluck('available');
        if($available[0] == 1){
         $available = "true";
        }else{
