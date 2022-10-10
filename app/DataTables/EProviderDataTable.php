@@ -95,7 +95,7 @@ class EProviderDataTable extends DataTable
             ],
             [
                 'data' => 'users',
-                'title' => trans('lang.e_provider_users'),
+                'title' =>'Category',
                 'searchable' => false,
                 'orderable' => false
             ],
@@ -126,11 +126,12 @@ class EProviderDataTable extends DataTable
                 'searchable' => false,
                 'orderable' => false
             ],
-            [
-                'data' => 'available',
-                'title' => trans('lang.e_provider_available'),
+            // [
+            //     'data' => 'available',
+            //     'title' => trans('lang.e_provider_available'),
 
-            ], [
+            // ],
+             [
                 'data' => 'accepted',
                 'title' => trans('lang.e_provider_accepted'),
 

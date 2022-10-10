@@ -221,11 +221,26 @@
             {!! Form::checkbox('accepted', 1, null) !!} <label for="accepted"></label> </span>
     </div>
     @endrole
-    <div class="d-flex flex-row justify-content-between align-items-center">
+    @if($available == 'true')
+     <div class="d-flex flex-row justify-content-between align-items-center">
+        {!! Form::label('available', trans("lang.e_provider_available"),['class' => 'control-label my-0 mx-3']) !!} 
+        {!! Form::hidden('available', 0, ['id'=>"hidden_available"]) !!}
+        <span class="icheck-{{setting('theme_color')}}">
+            {!! Form::checkbox('available', 1, 1) !!} <label for="available"></label> </span>
+    </div>
+    @elseif($available == 'false')
+     <div class="d-flex flex-row justify-content-between align-items-center">
         {!! Form::label('available', trans("lang.e_provider_available"),['class' => 'control-label my-0 mx-3']) !!} {!! Form::hidden('available', 0, ['id'=>"hidden_available"]) !!}
         <span class="icheck-{{setting('theme_color')}}">
             {!! Form::checkbox('available', 1, null) !!} <label for="available"></label> </span>
     </div>
+    @else
+    @endif
+    {{-- <div class="d-flex flex-row justify-content-between align-items-center">
+        {!! Form::label('available', trans("lang.e_provider_available"),['class' => 'control-label my-0 mx-3']) !!} {!! Form::hidden('available', 0, ['id'=>"hidden_available"]) !!}
+        <span class="icheck-{{setting('theme_color')}}">
+            {!! Form::checkbox('available', 1, null) !!} <label for="available"></label> </span>
+    </div> --}}
     <div class="d-flex flex-row justify-content-between align-items-center">
         {!! Form::label('featured', trans("lang.e_provider_featured"),['class' => 'control-label my-0 mx-3']) !!} {!! Form::hidden('featured', 0, ['id'=>"hidden_featured"]) !!}
         <span class="icheck-{{setting('theme_color')}}">

@@ -41,7 +41,7 @@ use Illuminate\View\View;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Repositories\CategoryRepository;
-
+use Illuminate\Support\Facades\DB;
 class EProviderController extends Controller
 {
     /** @var  CategoryRepository */
@@ -106,6 +106,7 @@ class EProviderController extends Controller
      */
     public function index(EProviderDataTable $eProviderDataTable)
     {
+    
         return $eProviderDataTable->render('e_providers.index');
     }
 
@@ -188,6 +189,7 @@ class EProviderController extends Controller
      */
     public function show(int $id)
     {
+        
         $this->eProviderRepository->pushCriteria(new EProvidersOfUserCriteria(auth()->id()));
         $eProvider = $this->eProviderRepository->findWithoutFail($id);
 
@@ -210,7 +212,7 @@ class EProviderController extends Controller
      */
     public function edit(int $id)
     {
-
+ 
         
         $this->eProviderRepository->pushCriteria(new EProvidersOfUserCriteria(auth()->id()));
         $eProvider = $this->eProviderRepository->findWithoutFail($id);
@@ -226,18 +228,26 @@ class EProviderController extends Controller
         $usersSelected = $eProvider->users()->pluck('users.id')->toArray();
         $addressesSelected = $eProvider->addresses()->pluck('addresses.id')->toArray();
         $taxesSelected = $eProvider->taxes()->pluck('taxes.id')->toArray();
-
-        
-
+          $available = DB::table('e_providers')->where('id', $id)->pluck('available');
+       if($available[0] == 1){
+        $available = "true";
+       }else{
+        $available ="false";
+       }
         $customFieldsValues = $eProvider->customFieldsValues()->with('customField')->get();
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->eProviderRepository->model());
         $hasCustomField = in_array($this->eProviderRepository->model(), setting('custom_field_models', []));
         if ($hasCustomField) {
             $html = generateCustomField($customFields, $customFieldsValues);
         }
-        
-
-        return view('e_providers.edit')->with("parentCategory", $parentCategory)->with('eProvider', $eProvider)->with("customFields", isset($html) ? $html : false)->with("eProviderType", $eProviderType)->with("user", $user)->with("usersSelected", $usersSelected)->with("address", $address)->with("addressesSelected", $addressesSelected)->with("tax", $tax)->with("taxesSelected", $taxesSelected);
+ 
+        return view('e_providers.edit')->with("parentCategory", $parentCategory)
+                                    ->with('eProvider', $eProvider)->with("customFields", isset($html) ? $html : false)
+                                    ->with("eProviderType", $eProviderType)->with("user", $user)
+                                    ->with("usersSelected", $usersSelected)->with("address", $address)
+                                    ->with("addressesSelected", $addressesSelected)->with("tax", $tax)
+                                    ->with("taxesSelected", $taxesSelected)
+                                    ->with('available',$available);
     }
 
     /**
