@@ -34,6 +34,11 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        if(auth()->check() && count(auth()->user()->roles) && in_array('customer',auth()->user()->roles->pluck('name')->toArray())) {
+            // auth()->logout();
+            return redirect()->to('https://yellowpageja.com');
+        }else{
+            $this->middleware('guest');
+        }
     }
 }

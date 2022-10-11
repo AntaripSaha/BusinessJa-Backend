@@ -41,7 +41,8 @@ class Permissions
     public function handle($request, Closure $next)
     {
         if(auth()->check() && count(auth()->user()->roles) && in_array('customer',auth()->user()->roles->pluck('name')->toArray())) {
-            auth()->logout();
+            // auth()->logout();
+            return redirect()->to('https://yellowpageja.com');
             return abort(401, 'Register as Member.');
         }
         $permission = $request->route()->getName();
