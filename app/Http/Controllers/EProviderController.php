@@ -137,12 +137,18 @@ class EProviderController extends Controller
         $usersSelected = [];
         $addressesSelected = [];
         $taxesSelected = [];
+        $available[0] = 2;
+        if($available[0] == 1){
+         $available = "true";
+        }else{
+         $available ="false";
+        }
         $hasCustomField = in_array($this->eProviderRepository->model(), setting('custom_field_models', []));
         if ($hasCustomField) {
             $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->eProviderRepository->model());
             $html = generateCustomField($customFields);
         }
-        return view('e_providers.create')->with("parentCategory", $parentCategory)->with("customFields", isset($html) ? $html : false)->with("eProviderType", $eProviderType)->with("user", $user)->with("usersSelected", $usersSelected)->with("address", $address)->with("addressesSelected", $addressesSelected)->with("tax", $tax)->with("taxesSelected", $taxesSelected);
+        return view('e_providers.create')->with('available',$available)->with("parentCategory", $parentCategory)->with("customFields", isset($html) ? $html : false)->with("eProviderType", $eProviderType)->with("user", $user)->with("usersSelected", $usersSelected)->with("address", $address)->with("addressesSelected", $addressesSelected)->with("tax", $tax)->with("taxesSelected", $taxesSelected);
     }
 
     /**

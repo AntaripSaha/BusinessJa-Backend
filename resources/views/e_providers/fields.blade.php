@@ -125,11 +125,11 @@
     </div>
     <!-- Mobile Number Field -->
     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
-        {!! Form::label('mobile_number', trans("lang.e_provider_mobile_number"), ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
+        {!! Form::label('mobile_number', trans("WhatsApp"), ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
         <div class="col-md-9">
-            {!! Form::text('mobile_number', null,  ['class' => 'form-control','placeholder'=>  trans("lang.e_provider_mobile_number_placeholder")]) !!}
+            {!! Form::text('mobile_number', null,  ['class' => 'form-control','placeholder'=>  "WhatsApp"]) !!}
             <div class="form-text text-muted">
-                {{ trans("lang.e_provider_mobile_number_help") }}
+                {{ trans("Insert WhatsApp Number") }}
             </div>
         </div>
     </div>
